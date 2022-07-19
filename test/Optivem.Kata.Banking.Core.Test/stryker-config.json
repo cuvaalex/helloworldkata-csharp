@@ -1,0 +1,6 @@
+﻿{
+  "stryker-config": {
+    "solution": "../../Optivem.Kata.Banking.sln",
+    "project": "Optivem.Kata.Banking.Core"
+  }
+}
