@@ -6,14 +6,30 @@ pool:
 
 stages:
 - stage: Test
+  jobs:
+  - job: job1
+    steps:
+      - script: echo Test
 
 - stage: DeployUS1
-  dependsOn: Test    # this stage runs after Test
+  jobs:
+    - job: DeployUS1
+      steps:
+        - script: echo "DeployUS1 - this stage runs after Test"
+  dependsOn: Test
 
 - stage: DeployUS2
-  dependsOn: Test    # this stage runs in parallel with DeployUS1, after Test
+  jobs:
+    - job: DeployUS2
+      steps:
+        - script: echo "DeployUS2 - this stage runs in parallel with DeployUS1, after Test"
+  dependsOn: Test
 
 - stage: DeployEurope
-  dependsOn:         # this stage runs after DeployUS1 and DeployUS2
+  jobs:
+    - job: DeployEurope
+      steps:
+        - script: echo "DeployEurope - this stage runs after DeployUS1 and DeployUS2"
+  dependsOn:
   - DeployUS1
   - DeployUS2
