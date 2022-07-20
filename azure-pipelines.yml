@@ -35,8 +35,8 @@ stages:
   - DeployUS2
 
 - stage: Demo
+  dependsOn: []
   jobs:
     - job: MyDemo
       steps:
         - script: echo "My Demo"
-      dependsOn: []
