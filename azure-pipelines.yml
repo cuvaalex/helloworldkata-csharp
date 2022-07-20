@@ -7,7 +7,7 @@ resources:
     image: ubuntu:18.04
 
 variables:
-  myvariable: value # this var is available to all jobs in all stages
+- group: docker
 
 stages:
 - stage:
@@ -19,4 +19,4 @@ stages:
     variables:
       myvariable: value2 # this var is only available within this job
     steps:
-    - script: echo $(myvariable)
+    - script: "echo $(docker.username)"
