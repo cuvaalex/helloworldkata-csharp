@@ -33,3 +33,9 @@ stages:
   dependsOn:
   - DeployUS1
   - DeployUS2
+
+- stage: Demo
+  jobs:
+    - job: MyDemo
+      steps:
+        - script: echo "My Demo"
