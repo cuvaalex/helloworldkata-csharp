@@ -39,3 +39,4 @@ stages:
     - job: MyDemo
       steps:
         - script: echo "My Demo"
+      dependsOn: []
