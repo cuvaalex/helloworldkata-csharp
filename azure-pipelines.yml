@@ -7,18 +7,16 @@ resources:
     image: ubuntu:18.04
 
 variables:
-  global_variable: value # this var is available to all jobs in all stages
+  myvariable: value # this var is available to all jobs in all stages
 
 stages:
 - stage:
   displayName: stage1
   variables:
-    stage_variable: value1 # this var is only available within this stage
+    myvariable: value1 # this var is only available within this stage
   jobs:
   - job: job1
     variables:
-      job_variable: value2 # this var is only available within this job
+      myvariable: value2 # this var is only available within this job
     steps:
-    - script: echo $(global_variable)
-    - script: echo $(stage_variable)
-    - script: echo $(job_variable)
+    - script: echo $(myvariable)
