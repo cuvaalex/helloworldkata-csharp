@@ -6,8 +6,19 @@ resources:
   - container: mycontainer
     image: ubuntu:18.04
 
-steps:
-- script: echo "Hello from host"
-  target: host
-- script: echo "Hello from inside of container" && printenv
-  target: mycontainer
+variables:
+  global_variable: value # this var is available to all jobs in all stages
+
+stages:
+- stage:
+  displayName: stage1
+  variables:
+    stage_variable: value1 # this var is only available within this stage
+  jobs:
+  - job: job1
+    variables:
+      job_variable: value2 # this var is only available within this job
+    steps:
+    - script: echo $(global_variable)
+    - script: echo $(stage_variable)
+    - script: echo $(job_variable)
