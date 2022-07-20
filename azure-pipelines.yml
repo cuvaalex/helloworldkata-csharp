@@ -14,11 +14,10 @@ variables:
 stages:
 - stage:
   displayName: stage1
-  variables:
-    myvariable: value1 # this var is only available within this stage
   jobs:
   - job: job1
-    variables:
-      myvariable: value2 # this var is only available within this job
     steps:
-    - script: "echo $(docker.username)"
+    - script: echo $MY_SECRET
+      env:
+        MY_SECRET: $(mysecretvar)
+        
