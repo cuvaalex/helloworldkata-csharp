@@ -1,7 +1,13 @@
 trigger:
 - master
 
-container: ubuntu:18.04
+resources:
+  containers:
+  - container: mycontainer
+    image: ubuntu:18.04
 
 steps:
-- script: printenv
+- script: echo "Hello from host"
+  target: host
+- script: echo "Hello from inside of container" && printenv
+  target: mycontainer
