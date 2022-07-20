@@ -8,6 +8,8 @@ resources:
 
 variables:
 - group: docker
+- name: myvar
+  value: myvalue
 
 stages:
 - stage:
