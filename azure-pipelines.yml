@@ -5,30 +5,30 @@ stages:
     steps:
       - script: echo Test
   
-- stage: Test 1
+- stage: Test1
   jobs:
     - job: Test1
       steps:
-        - script: echo "Test 1 - this stage runs after Test"
+        - script: echo "Test1 - this stage runs after Test"
   dependsOn: Test
   
-- stage: Test 2
+- stage: Test2
   jobs:
     - job: Test2
       steps:
-        - script: echo "Test 2 - this stage runs in parallel with Test 1, after Test"
+        - script: echo "Test2 - this stage runs in parallel with Test1, after Test"
   dependsOn: Test
   
-- stage: Test multiple dependencies
+- stage: TestMultiDependencies
   jobs:
-    - job: TestMultiDependency
+    - job: TestMultiDependencies
       steps:
-        - script: echo "TestMultiDependency - this stage runs after Test 1 and Test 2"
+        - script: echo "TestMultiDependencies - this stage runs after Test1 and Test2"
   dependsOn:
   - Test1
   - Test2
   
-- stage: Test No Dependency
+- stage: TestNoDependency
   dependsOn: []
   jobs:
     - job: TestNoDependency
