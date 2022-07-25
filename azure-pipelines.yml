@@ -1,36 +1,23 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  global_variable: myglogalvar # this var is available to all jobs in all stages
+ 
 stages:
-- stage: Test
+- stage: stage1
+  displayName: stage1
+  variables:
+    stage_variable: mystagevar1 # this var is only available within this stage
   jobs:
   - job: job1
+    variables:
+      job_variable: myjobvar1 # this var is only available within this job
     steps:
-      - script: echo Test
-  
-- stage: Test1
-  jobs:
-    - job: Test1
-      steps:
-        - script: echo "Test1 - this stage runs after Test"
-  dependsOn: Test
-  
-- stage: Test2
-  jobs:
-    - job: Test2
-      steps:
-        - script: echo "Test2 - this stage runs in parallel with Test1, after Test"
-  dependsOn: Test
-  
-- stage: TestMultiDependencies
-  jobs:
-    - job: TestMultiDependencies
-      steps:
-        - script: echo "TestMultiDependencies - this stage runs after Test1 and Test2"
-  dependsOn:
-  - Test1
-  - Test2
-  
-- stage: TestNoDependency
-  dependsOn: []
-  jobs:
-    - job: TestNoDependency
-      steps:
-        - script: echo "TestNoDependency - this stage runs in parallel with Test"
+    - script: echo $(global_variable)
+    - script: echo $(stage_variable)
+    - script: echo $(job_variable)
