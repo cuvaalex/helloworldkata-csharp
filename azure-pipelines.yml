@@ -21,3 +21,4 @@ stages:
     - script: echo $(global_variable)
     - script: echo $(stage_variable)
     - script: echo $(job_variable)
+    - script: echo $(mysecret)
