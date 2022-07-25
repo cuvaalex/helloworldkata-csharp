@@ -1,23 +1,36 @@
-trigger:
-- master
-
-resources:
-  containers:
-  - container: mycontainer
-    image: ubuntu:18.04
-
-variables:
-- group: docker
-- name: myvar
-  value: myvalue
-
 stages:
-- stage:
-  displayName: stage1
+- stage: Test
   jobs:
   - job: job1
     steps:
-    - script: echo "$env:MY_SECRET"
-      env:
-        MY_SECRET: $(mysecretvar)
-        
+      - script: echo Test
+  
+- stage: Test 1
+  jobs:
+    - job: Test1
+      steps:
+        - script: echo "Test 1 - this stage runs after Test"
+  dependsOn: Test
+  
+- stage: Test 2
+  jobs:
+    - job: Test2
+      steps:
+        - script: echo "Test 2 - this stage runs in parallel with Test 1, after Test"
+  dependsOn: Test
+  
+- stage: Test multiple dependencies
+  jobs:
+    - job: TestMultiDependency
+      steps:
+        - script: echo "TestMultiDependency - this stage runs after Test 1 and Test 2"
+  dependsOn:
+  - Test1
+  - Test2
+  
+- stage: Test No Dependency
+  dependsOn: []
+  jobs:
+    - job: TestNoDependency
+      steps:
+        - script: echo "TestNoDependency - this stage runs in parallel with Test"
