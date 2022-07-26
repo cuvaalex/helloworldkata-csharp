@@ -1,24 +1,27 @@
 
-trigger:
-- master
+trigger: none
 
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  global_variable: myglogalvar # this var is available to all jobs in all stages
+parameters:
+- name: image
+  displayName: Pool Image
+  values:
+  - windows-latest
+  - ubuntu-latest
+  - macOS-latest
+- name: test
+  displayName: Run Tests?
+  type: boolean
+  default: false
  
-stages:
-- stage: stage1
-  displayName: stage1
-  variables:
-    stage_variable: mystagevar1 # this var is only available within this stage
-  jobs:
-  - job: job1
-    variables:
-      job_variable: myjobvar1 # this var is only available within this job
-    steps:
-    - script: echo $(global_variable)
-    - script: echo $(stage_variable)
-    - script: echo $(job_variable)
-    - script: echo $(mysecret)
+jobs:
+- job: build
+  displayName: Build and Test
+  pool:
+    vmImage: ${{ parameters.image }}
+  steps:
+  - script: echo building $(Build.BuildNumber)
+  - ${{ if eq(parameters.test, true) }}:
+    - script: echo "Running all the tests"
