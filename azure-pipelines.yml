@@ -1,10 +1,26 @@
 
-trigger: none
-
-pool:
-  vmImage: ubuntu-latest
-
-extends:
-  template: simple-template.yml
-  parameters:
-      content: "This is a simple template"
+trigger:
+- master
+ 
+parameters:
+- name: image
+  displayName: Pool Image
+  default: ubuntu-latest
+  values:
+  - windows-latest
+  - ubuntu-latest
+  - macOS-latest
+- name: test
+  displayName: Run Tests?
+  type: boolean
+  default: false
+ 
+jobs:
+- job: build
+  displayName: Build and Test
+  pool:
+    vmImage: ${{ parameters.image }}
+  steps:
+  - script: echo building $(Build.BuildNumber)
+  - ${{ if eq(parameters.test, true) }}:
+    - script: echo "Running all the tests"
