@@ -4,21 +4,23 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
- 
-jobs:
-- job: BJ
-  displayName: Build Job
-  steps:
-  - script: echo build
 
-- job: PJ
-  displayName: Package Job
-  steps:
+stages:
+- stage: Stage1
+  jobs:
+  - job: BJ
+    displayName: Build Job
+    steps:
+    - script: echo build
+
+  - job: PJ
+    displayName: Package Job
+    steps:
     - script: echo Package
-  dependsOn: BJ
+    dependsOn: BJ
 
-- job: DJ
-  displayName: Deploy Job
-  steps:
+  - job: DJ
+    displayName: Deploy Job
+    steps:
     - script: echo Deploy
-  dependsOn: PJ
+    dependsOn: PJ
