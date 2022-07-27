@@ -5,6 +5,16 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- name: demo
+  value: mydemo
+
+parameters:
+  - name: param1
+    displayName: Enter parameter 1
+    default: ""
+    type: string
+
 stages:
 - stage: Stage1
   jobs:
