@@ -10,10 +10,15 @@ variables:
   value: mydemo
 
 parameters:
-  - name: param1
-    displayName: Enter parameter 1
-    default: ""
+  - name: env
+    displayName: Environment
     type: string
+    values:
+      - dev
+      - prod
+      - test
+      - train
+    default: dev
 
 stages:
 - stage: Stage1
