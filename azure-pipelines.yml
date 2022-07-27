@@ -29,7 +29,7 @@ stages:
     - script: echo build
 
 - stage: PackageStage
-  dependsOn: BJ
+  dependsOn: BuildStage
   jobs:
   - job: PJ
     displayName: Package Job
@@ -37,7 +37,7 @@ stages:
     - script: echo Package
 
 - stage: DeployStage
-  dependsOn: PJ
+  dependsOn: PackageStage
   jobs:
   - job: DJ
     displayName: Deploy Job
