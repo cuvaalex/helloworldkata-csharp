@@ -15,8 +15,10 @@ jobs:
   displayName: Package Job
   steps:
     - script: echo Package
+  dependsOn: BJ
 
 - job: DJ
   displayName: Deploy Job
   steps:
     - script: echo Deploy
+  dependsOn: PJ
