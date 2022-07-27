@@ -21,21 +21,25 @@ parameters:
     default: dev
 
 stages:
-- stage: Stage1
+- stage: BuildStage
   jobs:
   - job: BJ
     displayName: Build Job
     steps:
     - script: echo build
 
+- stage: PackageStage
+  dependsOn: BJ
+  jobs:
   - job: PJ
     displayName: Package Job
     steps:
     - script: echo Package
-    dependsOn: BJ
 
+- stage: DeployStage
+  dependsOn: PJ
+  jobs:
   - job: DJ
     displayName: Deploy Job
     steps:
     - script: echo Deploy
-    dependsOn: PJ
