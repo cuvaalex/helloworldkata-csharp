@@ -1,26 +1,22 @@
 
 trigger:
 - master
- 
-parameters:
-- name: image
-  displayName: Pool Image
-  default: ubuntu-latest
-  values:
-  - windows-latest
-  - ubuntu-latest
-  - macOS-latest
-- name: test
-  displayName: Run Tests?
-  type: boolean
-  default: false
+
+pool:
+  vmImage: ubuntu-latest
  
 jobs:
-- job: build
-  displayName: Build and Test
-  pool:
-    vmImage: ${{ parameters.image }}
+- job: BJ
+  displayName: Build Job
   steps:
-  - script: echo building $(Build.BuildNumber)
-  - ${{ if eq(parameters.test, true) }}:
-    - script: echo "Running all the tests"
+  - script: echo build
+
+- job: PJ
+  displayName: Package Job
+  steps:
+    - script: echo Package
+
+- job: DJ
+  displayName: Deploy Job
+  steps:
+    - script: echo Deploy
