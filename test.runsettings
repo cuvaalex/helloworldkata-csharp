@@ -6,7 +6,7 @@
 	<RunConfiguration>
 		<EnvironmentVariables>
 			<SDK_PATH>Some path</SDK_PATH>
-			<SQL_SERVER_CONNECTION_STRING>Data Source=localhost;Initial Catalog=BankingKata;Integrated Security=True;MultipleActiveResultSets=True;</SQL_SERVER_CONNECTION_STRING>
+			<SQL_SERVER_CONNECTION_STRING>Data Source=localhost;Initial Catalog=HelloWorldKata;Integrated Security=True;MultipleActiveResultSets=True;</SQL_SERVER_CONNECTION_STRING>
 		</EnvironmentVariables>
 	</RunConfiguration>
 </RunSettings>
