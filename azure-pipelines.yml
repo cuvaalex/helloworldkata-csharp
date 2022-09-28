@@ -7,7 +7,7 @@ pool:
 
 variables:
 - name: demo
-  value: mydemo
+  value: DevSecOps.Lab.DotNet
 
 parameters:
   - name: env

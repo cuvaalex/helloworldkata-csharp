@@ -2,7 +2,6 @@
 
 public interface IHelloWorldIdGenerator
 {
-    HelloWorldId? Next();
-
-    void WillGenerate(long expectedValue);
+    HelloWorldId Next();
+    
 }

@@ -12,7 +12,7 @@ public class HelloWorldControllerSystemTest : BaseTest
     {
     }
 
-    [Fact(Skip="System not working yet, remove when strike done")]
+    [Fact]
     public async Task Should_create_new_name_given_valid_request()
     {
         var url = "hello-worlds";

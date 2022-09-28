@@ -2,13 +2,14 @@
 using Rolex.DevSecOps.Lab.HelloWorld.Core.Domain.HelloWorlds;
 using Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.Exceptions;
 using Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.HelloWorlds;
+using Rolex.DevSecOps.Lab.HelloWorld.Test.Common.Setup;
 using Xunit;
 
 namespace Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.Test;
 
 public class FakeHelloWorldIdGeneratorShould
 {
-    private IHelloWorldIdGenerator _generator;
+    private FakeHelloWorldIdGenerator _generator;
 
     public FakeHelloWorldIdGeneratorShould()
     {

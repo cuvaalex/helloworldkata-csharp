@@ -13,7 +13,7 @@ public class FakeHelloWorldIdGenerator : IHelloWorldIdGenerator
     }
 
 
-    public HelloWorldId? Next()
+    public HelloWorldId Next()
     {
         if (!_queue.Any())
         {

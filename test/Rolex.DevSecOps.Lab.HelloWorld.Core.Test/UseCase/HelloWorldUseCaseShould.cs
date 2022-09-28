@@ -10,7 +10,7 @@ namespace Rolex.DevSecOps.Lab.HelloWorld.Core.Test.UseCase;
 public class HelloWorldUseCaseShould
 {
     private HelloWorldUseCase _useCase;
-    private readonly IHelloWorldIdGenerator _idGenerator;
+    private readonly FakeHelloWorldIdGenerator _idGenerator;
     private readonly IHelloWorldRepository _repository;
 
     public HelloWorldUseCaseShould()

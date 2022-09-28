@@ -19,7 +19,7 @@ public class HelloWorldUseCase : IRequestHandler<HelloWorldRequest, HelloWorldRe
         HelloWorldName name = HelloWorldName.From(request.name);
         var helloWorldId = _helloWorldIdGenerator.Next();
 
-        var helloWorld = new HelloWorldEntity(helloWorldId.Value, name);
+        var helloWorld = new HelloWorldEntity(helloWorldId, name);
         _repository.Add(helloWorld);
 
         var response = new HelloWorldResponse(helloWorldId);
