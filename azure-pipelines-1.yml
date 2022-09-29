@@ -1,0 +1,102 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  name: Rolex.DevSecOps.Lab.HelloWorld.DotNet
+
+parameters:
+  - name: env
+    displayName: Environment
+    type: string
+    values:
+      - dev
+      - prod
+      - test
+      - train
+    default: dev
+
+stages:
+ - stage: BuildStage
+   jobs:
+     - job: BJ
+       displayName: BuildJob    
+       steps:
+        - task: NuGetToolInstaller@1
+        - task: NuGetCommand@2
+          inputs:
+            restoreSolution: '$(solution)'
+
+        - task: VSBuild@1
+          inputs:
+            solution: '$(solution)'
+            msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+            platform: '$(buildPlatform)'
+            configuration: '$(buildConfiguration)'
+ - stage: TestStage
+   dependsOn: BuildStage
+   jobs:
+     - job: VSTest
+       displayName: Unit, Integration & System Test
+       steps:
+        - task: DotNetCoreCLI@2
+          displayName: 'dotnet test'
+          inputs:
+            command: 'test'
+            arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+            publishTestResults: true
+            projects: 'MyTestLibrary' # update with your test project directory
+          
+        - task: PublishCodeCoverageResults@1
+          displayName: 'Publish code coverage report'
+          inputs:
+            codeCoverageTool: 'Cobertura'
+            summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+ - stage: MutationStage
+   dependsOn: TestStage
+   jobs:
+      - job: MT
+        displayName: Stryker Mutation
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Install dotnet-stryker'
+            inputs:
+              command: custom
+              custom: tool
+              arguments: install dotnet-stryker --tool-path $(Agent.BuildDirectory)/tools
+          - task: Powershell@2
+            displayName: 'Run dotnet-stryker'
+            inputs:
+              workingDirectory: 'test/Rolex.DevSecOps.Lab.HelloWorld.Core.Test'
+              targetType: 'inline'
+              pwsh: true
+              script: $(Agent.BuildDirectory)/tools/dotnet-stryker -s '../../HelloWorldKataDotNet.sln' -p 'Rolex.DevSecOps.Lab.HelloWorld.Core'
+          - task: PublishMutationReport@1
+            displayName: 'Publish Mutation Test Report'
+            inputs:
+              reportPattern: '**/mutation-report.html'
+ - stage: PackageStage
+   dependsOn: TestStage
+   jobs:
+    - job: PJ
+      displayName: Package Job
+      steps:
+        - script: echo Package
+
+ - stage: DeployStage
+   dependsOn: PackageStage
+   jobs:
+    - job: DJ
+      displayName: Deploy Job
+      steps:
+        - script: echo Deploy
