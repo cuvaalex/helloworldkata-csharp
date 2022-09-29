@@ -32,13 +32,16 @@ stages:
      - job: BJ
        displayName: BuildJob    
        steps:
-        - task: NuGetToolInstaller@1
-        - task: NuGetCommand@2
-          inputs:
+       - task: UseDotNet@2
+         inputs:
+          version: '6.0.x'
+       - task: NuGetToolInstaller@1
+       - task: NuGetCommand@2
+         inputs:
             restoreSolution: '$(solution)'
 
-        - task: VSBuild@1
-          inputs:
+       - task: VSBuild@1
+         inputs:
             solution: '$(solution)'
             msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
             platform: '$(buildPlatform)'
