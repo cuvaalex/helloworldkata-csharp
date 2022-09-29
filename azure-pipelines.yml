@@ -27,10 +27,18 @@ stages:
     displayName: Build Job
     steps:
     - script: echo build
+
+- stage: TestStage
+  dependsOn: BuildStage
+  jobs:
+  - job: Test
+    displayName: Unit, Integration & System Test
+    steps:
+      - script: echo test
   - job: MT
     displayName: Stryker Mutation
-    condition:
-    dependsOn: BJ
+    condition: 
+      dependsOn:Test
     steps:
     - task: DotNetCoreCLI@2
       displayName: 'Install dotnet-stryker'
@@ -51,7 +59,7 @@ stages:
         reportPattern: '**/mutation-report.html'
 
 - stage: PackageStage
-  dependsOn: BuildStage
+  dependsOn: TestStage
   jobs:
   - job: PJ
     displayName: Package Job
