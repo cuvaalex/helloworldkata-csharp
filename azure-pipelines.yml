@@ -44,7 +44,7 @@ stages:
         workingDirectory: 'test/Rolex.DevSecOps.Lab.HelloWorld.Core.Test'
         targetType: 'inline'
         pwsh: true
-        script: $(Agent.BuildDirectory)/tools/dotnet-stryker    
+        script: $(Agent.BuildDirectory)/tools/dotnet-stryker -s '../../HelloWorldKataDotNet.sln' -p 'Rolex.DevSecOps.Lab.HelloWorld.Core'    
     - task: PublishMutationReport@1
       displayName: 'Publish Mutation Test Report'
       inputs:
