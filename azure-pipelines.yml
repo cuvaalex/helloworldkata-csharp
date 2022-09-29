@@ -27,7 +27,29 @@ stages:
     displayName: Build Job
     steps:
     - script: echo build
-
+  - job: MT
+    displayName: Stryker Mutation
+    condition:
+    dependsOn: BJ
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: 'Install dotnet-stryker'
+      inputs:
+        command: custom
+        custom: tool
+        arguments: install dotnet-stryker --tool-path $(Agent.BuildDirectory)/tools
+    - task: Powershell@2
+      displayName: 'Run dotnet-stryker'
+      inputs:
+        workingDirectory: 'test/Rolex.DevSecOps.Lab.HelloWorld.Core.Test'
+        targetType: 'inline'
+        pwsh: true
+        script: $(Agent.BuildDirectory)/tools/dotnet-stryker    
+    - task: PublishMutationReport@0
+      displayName: 'Publish Mutation Test Report'
+      inputs:
+        reportPattern: '**/mutation-report.html'
+        
 - stage: PackageStage
   dependsOn: BuildStage
   jobs:
