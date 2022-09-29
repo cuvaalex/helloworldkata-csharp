@@ -4,6 +4,7 @@ using Rolex.DevSecOps.Lab.HelloWorld.Core.UseCases.HelloWorld;
 using Rolex.DevSecOps.Lab.HelloWorld.Core.Exceptions;
 using Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.HelloWorlds;
 using Rolex.DevSecOps.Lab.HelloWorld.Test.Common.Data;
+using Xunit;
 
 namespace Rolex.DevSecOps.Lab.HelloWorld.Core.Test.UseCase;
 
