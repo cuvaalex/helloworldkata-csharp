@@ -16,7 +16,7 @@ public class HelloWorldRepository : IHelloWorldRepository
     public void Add(HelloWorldEntity helloWorldEntity)
     {
         var record = new HelloWorldRecord.Builder()
-            .Id(helloWorldEntity.helloWorldId.helloWorldId)
+            .Id(helloWorldEntity.helloWorldId.Value)
             .Name(helloWorldEntity.name.Name).Build();
         _dbContext.HelloWorlds.Add(record);
         _dbContext.SaveChanges();
@@ -25,7 +25,7 @@ public class HelloWorldRepository : IHelloWorldRepository
     public async Task<HelloWorldEntity> GetAsync(HelloWorldId helloworldId)
     {
         var record = await _dbContext.HelloWorlds
-            .Where(e => e.Id == helloworldId.helloWorldId)
+            .Where(e => e.Id == helloworldId.Value)
             .SingleOrDefaultAsync();
         return new HelloWorldEntity(HelloWorldId.From(record.Id)
             , HelloWorldName.From(record.Name));

@@ -11,8 +11,8 @@ public struct HelloWorldId
     }
     private HelloWorldId(long id)
     {
-        this.helloWorldId = id.GuardAgainstSmallerThan0(ValidationMessages.HelloWorldIdUnder0);
+        this.Value = id.GuardAgainstSmallerThan0(ValidationMessages.HelloWorldIdUnder0);
     }
 
-    public long helloWorldId { get; }
+    public long Value { get; }
 }

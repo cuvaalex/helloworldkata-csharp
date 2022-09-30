@@ -1,13 +1,22 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 variables:
-- name: demo
-  value: DevSecOps.Lab.DotNet
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  name: Rolex.DevSecOps.Lab.HelloWorld.DotNet
+  disable.coverage.autogenerate: 'true'
+  codecoveragehistory.directory: '$(Build.ArtifactStagingDirectory)\history'
+  codecoveragehistory.feedName: '$(Build.Repository.Name)-$(Build.SourceBranchName)'
 
 parameters:
   - name: env
@@ -21,57 +30,110 @@ parameters:
     default: dev
 
 stages:
-- stage: BuildStage
-  jobs:
-  - job: BJ
-    displayName: Build Job
-    steps:
-    - script: dotnet build
+  - stage: BuildStage
+    jobs:
+      - job: BJ
+        displayName: BuildJob
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              version: '6.0.x'
+          - task: NuGetToolInstaller@1
+          - task: NuGetCommand@2
+            inputs:
+              restoreSolution: '$(solution)'
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet build $(buildConfiguration)'
+            inputs:
+              command: 'build'
+              arguments: '--configuration $(buildConfiguration)'
 
-- stage: TestStage
-  dependsOn: BuildStage
-  jobs:
-  - job: Test
-    displayName: Unit, Integration & System Test
-    steps:
-      - script: dotnet test
-      
-- stage: MutationStage
-  dependsOn: TestStage
-  jobs:
-    - job: MT
-      displayName: Stryker Mutation
-      steps:
-      - task: DotNetCoreCLI@2
-        displayName: 'Install dotnet-stryker'
-        inputs:
-          command: custom
-          custom: tool
-          arguments: install dotnet-stryker --tool-path $(Agent.BuildDirectory)/tools
-      - task: Powershell@2
-        displayName: 'Run dotnet-stryker'
-        inputs:
-          workingDirectory: 'test/Rolex.DevSecOps.Lab.HelloWorld.Core.Test'
-          targetType: 'inline'
-          pwsh: true
-          script: $(Agent.BuildDirectory)/tools/dotnet-stryker -s '../../HelloWorldKataDotNet.sln' -p 'Rolex.DevSecOps.Lab.HelloWorld.Core'    
-      - task: PublishMutationReport@1
-        displayName: 'Publish Mutation Test Report'
-        inputs:
-          reportPattern: '**/mutation-report.html'
+  - stage: TestStage
+    dependsOn: BuildStage
+    jobs:
+      - job: Test
+        displayName: Unit, Integration & System Test
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet test'
+            inputs:
+              command: 'test'
+              projects: '**/*Test*.csproj'
+              arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+              publishTestResults: true
 
-- stage: PackageStage
-  dependsOn: TestStage
-  jobs:
-  - job: PJ
-    displayName: Package Job
-    steps:
-    - script: echo Package
+          - task: PublishCodeCoverageResults@1
+            displayName: 'Publish code coverage report'
+            inputs:
+              codeCoverageTool: 'Cobertura'
+              summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
-- stage: DeployStage
-  dependsOn: PackageStage
-  jobs:
-  - job: DJ
-    displayName: Deploy Job
-    steps:
-    - script: echo Deploy
+          - task: UniversalPackages@0
+            displayName: Get code coverage history from Azure Artifacts
+            continueOnError: true
+            inputs:
+              command: 'download'
+              downloadDirectory: '$(codecoveragehistory.directory)'
+              feedsToUse: 'internal'
+              vstsFeed: 'xxxxxxx'
+              vstsFeedPackage: '$(codecoveragehistory.feedName)'
+              vstsPackageVersion: '0.*'
+
+          - task: reportgenerator@5
+            displayName: 'Create Code coverage report'
+            inputs:
+              reports: '$(Build.SourcesDirectory)\**\coverage.cobertura.xml'
+              targetdir: '$(Build.SourcesDirectory)\CodeCoverage'
+              historydir: '$(codecoveragehistory.directory)'
+              title: 'Merged code coverage for $(Build.Repository.Name)-$(Build.SourceBranchName)'
+
+          - task: UniversalPackages@0
+            displayName: Publish code coverage history to Azure Artifacts
+            inputs:
+              command: 'publish'
+              publishDirectory: '$(codecoveragehistory.directory)'
+              feedsToUsePublish: 'internal'
+              vstsFeedPublish: 'xxxxxx'
+              vstsFeedPackagePublish: '$(codecoveragehistory.feedName)'
+              versionOption: 'patch'
+              packagePublishDescription: 'Code Coverage History for repository $(Build.Repository.Name) on branch $(Build.SourceBranchName)'
+              verbosity: 'Information'
+              
+  - stage: MutationStage
+    dependsOn: TestStage
+    jobs:
+      - job: MT
+        displayName: Stryker Mutation
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Install dotnet-stryker'
+            inputs:
+              command: custom
+              custom: tool
+              arguments: install dotnet-stryker --tool-path $(Agent.BuildDirectory)/tools
+          - task: Powershell@2
+            displayName: 'Run dotnet-stryker'
+            inputs:
+              workingDirectory: 'test/Rolex.DevSecOps.Lab.HelloWorld.Core.Test'
+              targetType: 'inline'
+              pwsh: true
+              script: $(Agent.BuildDirectory)/tools/dotnet-stryker -s '../../HelloWorldKataDotNet.sln' -p 'Rolex.DevSecOps.Lab.HelloWorld.Core'
+          - task: PublishMutationReport@1
+            displayName: 'Publish Mutation Test Report'
+            inputs:
+              reportPattern: '**/mutation-report.html'
+  - stage: PackageStage
+    dependsOn: MutationStage
+    jobs:
+      - job: PJ
+        displayName: Package Job
+        steps:
+          - script: echo Package
+
+  - stage: DeployStage
+    dependsOn: PackageStage
+    jobs:
+      - job: DJ
+        displayName: Deploy Job
+        steps:
+          - script: echo Deploy
