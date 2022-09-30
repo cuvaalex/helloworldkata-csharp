@@ -88,7 +88,7 @@ stages:
             inputs:
               reportPattern: '**/mutation-report.html'
  - stage: PackageStage
-   dependsOn: TestStage, MutationStage
+   dependsOn: MutationStage
    jobs:
     - job: PJ
       displayName: Package Job
