@@ -55,7 +55,7 @@ stages:
           displayName: 'dotnet test'
           inputs:
             command: 'test'
-            projects: '**/*Tests/*.csproj'
+            projects: '**/*Test*.csproj'
             arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
             publishTestResults: true
           
