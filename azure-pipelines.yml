@@ -61,6 +61,7 @@ stages:
               projects: '**/*Test*.csproj'
               arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
               publishTestResults: true
+              
 
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
@@ -68,37 +69,11 @@ stages:
               codeCoverageTool: 'Cobertura'
               summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
-          - task: UniversalPackages@0
-            displayName: Get code coverage history from Azure Artifacts
-            continueOnError: true
-            inputs:
-              command: 'download'
-              downloadDirectory: '$(codecoveragehistory.directory)'
-              feedsToUse: 'internal'
-              vstsFeed: 'xxxxxxx'
-              vstsFeedPackage: '$(codecoveragehistory.feedName)'
-              vstsPackageVersion: '0.*'
-
           - task: reportgenerator@5
-            displayName: 'Create Code coverage report'
             inputs:
-              reports: '$(Build.SourcesDirectory)\**\coverage.cobertura.xml'
-              targetdir: '$(Build.SourcesDirectory)\CodeCoverage'
+              reports: 'coverage.cobertura.xml'
+              targetdir: 'coveragereport'
               historydir: '$(codecoveragehistory.directory)'
-              title: 'Merged code coverage for $(Build.Repository.Name)-$(Build.SourceBranchName)'
-
-          - task: UniversalPackages@0
-            displayName: Publish code coverage history to Azure Artifacts
-            inputs:
-              command: 'publish'
-              publishDirectory: '$(codecoveragehistory.directory)'
-              feedsToUsePublish: 'internal'
-              vstsFeedPublish: 'xxxxxx'
-              vstsFeedPackagePublish: '$(codecoveragehistory.feedName)'
-              versionOption: 'patch'
-              packagePublishDescription: 'Code Coverage History for repository $(Build.Repository.Name) on branch $(Build.SourceBranchName)'
-              verbosity: 'Information'
-              
   - stage: MutationStage
     dependsOn: TestStage
     jobs:
