@@ -48,16 +48,16 @@ stages:
  - stage: TestStage
    dependsOn: BuildStage
    jobs:
-     - job: VSTest
+     - job: Test
        displayName: Unit, Integration & System Test
        steps:
         - task: DotNetCoreCLI@2
           displayName: 'dotnet test'
           inputs:
             command: 'test'
-            arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+            projects: '**/*Tests/*.csproj'
+            arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
             publishTestResults: true
-            projects: 'MyTestLibrary' # update with your test project directory
           
         - task: PublishCodeCoverageResults@1
           displayName: 'Publish code coverage report'
@@ -88,7 +88,7 @@ stages:
             inputs:
               reportPattern: '**/mutation-report.html'
  - stage: PackageStage
-   dependsOn: TestStage
+   dependsOn: TestStage, MutationStage
    jobs:
     - job: PJ
       displayName: Package Job
