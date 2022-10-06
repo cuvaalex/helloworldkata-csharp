@@ -28,7 +28,7 @@ public class DomainRules
         DomainTypes()
             .Should()
             .OnlyDependOnTypesThat()
-            .ResideInNamespace($"{Namespaces.Domain}|{Namespaces.Exceptions}", true)
+            .ResideInNamespace($"{Namespaces.Domain}|{Namespaces.Exceptions}|{Namespaces.CompilerServices}", true)
             .Check();
 
     [Fact]
