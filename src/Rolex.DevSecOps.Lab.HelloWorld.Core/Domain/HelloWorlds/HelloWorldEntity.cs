@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Rolex.DevSecOps.Lab.HelloWorld.Core.Domain.HelloWorlds;
+﻿namespace Rolex.DevSecOps.Lab.HelloWorld.Core.Domain.HelloWorlds;
 
 public record HelloWorldEntity(HelloWorldId helloWorldId, HelloWorldName name)
 {
