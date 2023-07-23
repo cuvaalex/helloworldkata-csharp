@@ -1,26 +1,30 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Core", "src\Rolex.DevSecOps.Lab.HelloWorld.Core\Rolex.DevSecOps.Lab.HelloWorld.Core.csproj", "{87304A5A-8C54-440E-95BC-380C94B7D580}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Core", "src\SoCraDev.Lab.HelloWorld.Core\SoCraDev.Lab.HelloWorld.Core.csproj", "{87304A5A-8C54-440E-95BC-380C94B7D580}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Core.Test", "test\Rolex.DevSecOps.Lab.HelloWorld.Core.Test\Rolex.DevSecOps.Lab.HelloWorld.Core.Test.csproj", "{338764B3-14FD-4F39-9275-861C867572B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Core.Test", "test\SoCraDev.Lab.HelloWorld.Core.Test\SoCraDev.Lab.HelloWorld.Core.Test.csproj", "{338764B3-14FD-4F39-9275-861C867572B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.System.Test", "test\Rolex.DevSecOps.Lab.HelloWorld.System.Test\Rolex.DevSecOps.Lab.HelloWorld.System.Test.csproj", "{940105F1-7B57-4184-B0BC-3C637348FAE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.System.Test", "test\SoCraDev.Lab.HelloWorld.System.Test\SoCraDev.Lab.HelloWorld.System.Test.csproj", "{940105F1-7B57-4184-B0BC-3C637348FAE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Test.Common", "test\Rolex.DevSecOps.Lab.HelloWorld.Test.Common\Rolex.DevSecOps.Lab.HelloWorld.Test.Common.csproj", "{DC4AADAC-DF05-4414-A4E5-DB1159C7A94D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Test.Common", "test\SoCraDev.Lab.HelloWorld.Test.Common\SoCraDev.Lab.HelloWorld.Test.Common.csproj", "{DC4AADAC-DF05-4414-A4E5-DB1159C7A94D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake", "test\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.csproj", "{CEEB0C7A-8F24-4420-AF7D-1B5C5C01DB90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Infrastructure.Fake", "test\SoCraDev.Lab.HelloWorld.Infrastructure.Fake\SoCraDev.Lab.HelloWorld.Infrastructure.Fake.csproj", "{CEEB0C7A-8F24-4420-AF7D-1B5C5C01DB90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.Integration.Test", "test\Rolex.DevSecOps.Lab.Integration.Test\Rolex.DevSecOps.Lab.Integration.Test.csproj", "{66A372D8-C680-48AD-B89C-E547457127AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Integration.Test", "test\SoCraDev.Lab.HelloWorld.Integration.Test\SoCraDev.Lab.HelloWorld.Integration.Test.csproj", "{66A372D8-C680-48AD-B89C-E547457127AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Web", "src\Rolex.DevSecOps.Lab.HelloWorld.Web\Rolex.DevSecOps.Lab.HelloWorld.Web.csproj", "{04D53416-C9E3-4ECE-A8FD-A6C6DBB4668D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Web", "src\SoCraDev.Lab.HelloWorld.Web\SoCraDev.Lab.HelloWorld.Web.csproj", "{04D53416-C9E3-4ECE-A8FD-A6C6DBB4668D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Infrastructure", "src\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.csproj", "{90810666-F0CB-45C5-AE1D-94D1C74B56DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Infrastructure", "src\SoCraDev.Lab.HelloWorld.Infrastructure\SoCraDev.Lab.HelloWorld.Infrastructure.csproj", "{90810666-F0CB-45C5-AE1D-94D1C74B56DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.CompositionRoot", "src\Rolex.DevSecOps.Lab.HelloWorld.CompositionRoot\Rolex.DevSecOps.Lab.HelloWorld.CompositionRoot.csproj", "{36A8A590-A9F6-43CD-81A7-6D8BF2685D56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.CompositionRoot", "src\SoCraDev.Lab.HelloWorld.CompositionRoot\SoCraDev.Lab.HelloWorld.CompositionRoot.csproj", "{36A8A590-A9F6-43CD-81A7-6D8BF2685D56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.Test", "test\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.Test\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Fake.Test.csproj", "{D9DF827B-0377-4C42-B488-F7A21836B61B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Infrastructure.Fake.Test", "test\SoCraDev.Lab.HelloWorld.Infrastructure.Fake.Test\SoCraDev.Lab.HelloWorld.Infrastructure.Fake.Test.csproj", "{D9DF827B-0377-4C42-B488-F7A21836B61B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Test", "test\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Test\Rolex.DevSecOps.Lab.HelloWorld.Infrastructure.Test.csproj", "{C2F54F7A-D55F-49C9-9A00-6300D6B3F4BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Infrastructure.Test", "test\SoCraDev.Lab.HelloWorld.Infrastructure.Test\SoCraDev.Lab.HelloWorld.Infrastructure.Test.csproj", "{C2F54F7A-D55F-49C9-9A00-6300D6B3F4BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Consumer", "src\SoCraDev.Lab.HelloWorld.Consumer\SoCraDev.Lab.HelloWorld.Consumer.csproj", "{66137457-000C-413A-92BC-E2D6C9D06096}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoCraDev.Lab.HelloWorld.Consumer.Test", "test\SoCraDev.Lab.HelloWorld.Consumer.Test\SoCraDev.Lab.HelloWorld.Consumer.Test.csproj", "{7D4F9E3E-DFC5-4D90-961C-09F0522845F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,5 +80,13 @@ Global
 		{C2F54F7A-D55F-49C9-9A00-6300D6B3F4BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F54F7A-D55F-49C9-9A00-6300D6B3F4BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F54F7A-D55F-49C9-9A00-6300D6B3F4BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66137457-000C-413A-92BC-E2D6C9D06096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66137457-000C-413A-92BC-E2D6C9D06096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66137457-000C-413A-92BC-E2D6C9D06096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66137457-000C-413A-92BC-E2D6C9D06096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D4F9E3E-DFC5-4D90-961C-09F0522845F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4F9E3E-DFC5-4D90-961C-09F0522845F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4F9E3E-DFC5-4D90-961C-09F0522845F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4F9E3E-DFC5-4D90-961C-09F0522845F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
